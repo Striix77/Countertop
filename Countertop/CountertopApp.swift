@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct CountertopApp: App {
+    @State private var container = AppContainer.live()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView(container: container)
         }
     }
 }
