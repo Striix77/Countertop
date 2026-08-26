@@ -20,6 +20,7 @@ struct DetailScreen: View {
             Button("Close") { viewModel.close() }
         }
         .navigationTitle("Detail")
+        .task { await viewModel.load() }
     }
 }
 

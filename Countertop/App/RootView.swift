@@ -1,10 +1,3 @@
-//
-//  RootView.swift
-//  Countertop
-//
-//  Created by Erik on 24/08/2026.
-//
-
 import SwiftUI
 
 /// Hosts the navigation stack and binds it to the router the whole scene shares.

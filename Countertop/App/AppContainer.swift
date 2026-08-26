@@ -14,29 +14,30 @@ import Foundation
 @MainActor
 @Observable
 final class AppContainer {
-    // Register services here as they arrive, e.g.
-    // let recipeRepository: any RecipeRepository
+    let recipeRepository: any RecipeRepository
 
-    init() { }
+    init(recipeRepository: any RecipeRepository) {
+        self.recipeRepository = recipeRepository
+    }
 
     /// The wiring the shipping app uses.
     static func live() -> AppContainer {
-        AppContainer()
+        AppContainer(recipeRepository: BundledRecipeRepository())
     }
 
     /// Same shape as `live()`, kept separate so previews and tests can diverge.
     static func preview() -> AppContainer {
-        AppContainer()
+        AppContainer(recipeRepository: InMemoryRecipeRepository())
     }
 
     // MARK: - View models
 
     func makeHomeViewModel(router: Router) -> HomeViewModel {
-        HomeViewModel(router: router)
+        HomeViewModel(recipeRepository: recipeRepository, router: router)
     }
 
     func makeDetailViewModel(id: UUID, router: Router) -> DetailViewModel {
-        DetailViewModel(id: id, router: router)
+        DetailViewModel(id: id, recipeRepository: recipeRepository, router: router)
     }
 
     func makeSettingsViewModel(router: Router) -> SettingsViewModel {

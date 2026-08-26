@@ -13,14 +13,29 @@ struct HomeScreen: View {
     init(viewModel: HomeViewModel) {
         _viewModel = State(initialValue: viewModel)
     }
+    
+    private var gridColumns: [GridItem] {
+        [.init(.adaptive(minimum: 160)), .init(.adaptive(minimum: 160))]
+    }
 
     var body: some View {
+        ScrollView {
+            LazyVGrid(columns: gridColumns, spacing: 16) {
+                ForEach(viewModel.recipes, id: \.id) { recipe in
+                    VStack(spacing: 16) {
+                        Text(recipe.title)
+                        Button("Show Recipe") { viewModel.showDetail(id: recipe.id) }
+                    }
+                }
+            }
+        }
+        .navigationTitle("Countertop")
         VStack(spacing: 16) {
             Text("Home")
             Button("Push Detail") { viewModel.showDetail(id: UUID()) }
             Button("Present Settings") { viewModel.showSettings() }
         }
-        .navigationTitle("Countertop")
+        .task { await viewModel.load() }
     }
 }
 

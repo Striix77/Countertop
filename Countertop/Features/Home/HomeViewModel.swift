@@ -10,10 +10,37 @@ import Foundation
 @MainActor
 @Observable
 final class HomeViewModel {
+    private(set) var recipes: [RecipeListEntry] = []
+    private(set) var isLoading = false
+    private(set) var loadFailed = false
+
+    private let recipeRepository: any RecipeRepository
     private let router: Router
 
-    init(router: Router) {
+    init(recipeRepository: any RecipeRepository, router: Router) {
+        self.recipeRepository = recipeRepository
         self.router = router
+    }
+
+    // MARK: - Loading
+
+    /// Fetches the list the home screen shows.
+    ///
+    /// Guards on `isLoading` because `.task` re-runs when the view's identity
+    /// changes, and a second in-flight load would just overwrite the first.
+    func load() async {
+        guard !isLoading else { return }
+
+        isLoading = true
+        loadFailed = false
+
+        do {
+            recipes = try await recipeRepository.allRecipes()
+        } catch {
+            loadFailed = true
+        }
+
+        isLoading = false
     }
 
     // MARK: - Intents
