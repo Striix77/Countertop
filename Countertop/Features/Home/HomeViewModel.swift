@@ -17,6 +17,15 @@ final class HomeViewModel {
     private let recipeRepository: any RecipeRepository
     private let router: Router
 
+    var searchInput: String = ""
+
+    var searchedRecipes: [RecipeListEntry] {
+        if searchInput.isEmpty {
+            return recipes
+        }
+        return recipes.filter { $0.matches(searchInput) }
+    }
+
     init(recipeRepository: any RecipeRepository, router: Router) {
         self.recipeRepository = recipeRepository
         self.router = router

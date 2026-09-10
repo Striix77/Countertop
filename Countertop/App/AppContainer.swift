@@ -22,7 +22,9 @@ final class AppContainer {
 
     /// The wiring the shipping app uses.
     static func live() -> AppContainer {
-        AppContainer(recipeRepository: BundledRecipeRepository())
+        //TODO: Uncomment this after implementing recipe adding
+//        AppContainer(recipeRepository: BundledRecipeRepository())
+        AppContainer(recipeRepository: InMemoryRecipeRepository())
     }
 
     /// Same shape as `live()`, kept separate so previews and tests can diverge.
