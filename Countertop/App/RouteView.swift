@@ -17,12 +17,15 @@ struct RouteView: View {
     let router: Router
 
     var body: some View {
-        switch route {
-        case .home:
-            HomeScreen(viewModel: container.makeHomeViewModel(router: router))
-        case .detail(let id):
-            DetailScreen(viewModel: container.makeDetailViewModel(id: id, router: router))
+        Group {
+            switch route {
+            case .home:
+                HomeScreen(viewModel: container.makeHomeViewModel(router: router))
+            case .detail(let id):
+                DetailScreen(viewModel: container.makeDetailViewModel(id: id, router: router))
+            }
         }
+        .organicScreen()
     }
 }
 
@@ -33,9 +36,12 @@ struct SheetRouteView: View {
     let router: Router
 
     var body: some View {
-        switch sheet {
-        case .settings:
-            SettingsScreen(viewModel: container.makeSettingsViewModel(router: router))
+        Group {
+            switch sheet {
+            case .settings:
+                SettingsScreen(viewModel: container.makeSettingsViewModel(router: router))
+            }
         }
+        .organicScreen()
     }
 }

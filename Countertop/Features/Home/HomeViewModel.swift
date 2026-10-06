@@ -16,10 +16,21 @@ final class HomeViewModel {
 
     private let recipeRepository: any RecipeRepository
     private let router: Router
+    private let favoritesStore: FavoritesStore
 
-    init(recipeRepository: any RecipeRepository, router: Router) {
+    var searchInput: String = ""
+
+    var searchedRecipes: [RecipeListEntry] {
+        if searchInput.isEmpty {
+            return recipes
+        }
+        return recipes.filter { $0.matches(searchInput) }
+    }
+
+    init(recipeRepository: any RecipeRepository, favoritesStore: FavoritesStore, router: Router) {
         self.recipeRepository = recipeRepository
         self.router = router
+        self.favoritesStore = favoritesStore
     }
 
     // MARK: - Loading
@@ -53,5 +64,15 @@ final class HomeViewModel {
 
     func showSettings() {
         router.present(.settings)
+    }
+
+    // MARK: - Favorites
+
+    func toggleFavorite(id: UUID) {
+        favoritesStore.toggle(id)
+    }
+
+    func isFavorite(id: UUID) -> Bool {
+        favoritesStore.contains(id)
     }
 }

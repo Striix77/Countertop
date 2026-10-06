@@ -15,6 +15,7 @@ struct RootView: View {
         .sheet(item: $router.presentedSheet) { sheet in
             SheetRouteView(sheet: sheet, container: container, router: router)
         }
+        .preferredColorScheme(.light)
     }
 }
 

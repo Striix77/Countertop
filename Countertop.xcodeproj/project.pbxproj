@@ -7,12 +7,26 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0322E7553073D2D70071F574 /* ROADMAP.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ROADMAP.md; sourceTree = "<group>"; };
 		03B34D05303C5C6C0064FF0D /* Countertop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countertop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		03B34DCC304063EF0064FF0D /* Exceptions for "Countertop" folder in "Countertop" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 03B34D04303C5C6C0064FF0D /* Countertop */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		03B34D07303C5C6C0064FF0D /* Countertop */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				03B34DCC304063EF0064FF0D /* Exceptions for "Countertop" folder in "Countertop" target */,
+			);
 			path = Countertop;
 			sourceTree = "<group>";
 		};
@@ -33,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				03B34D07303C5C6C0064FF0D /* Countertop */,
+				0322E7553073D2D70071F574 /* ROADMAP.md */,
 				03B34D06303C5C6C0064FF0D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -256,6 +271,7 @@
 				DEVELOPMENT_TEAM = B64HD4YQJW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Countertop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +304,7 @@
 				DEVELOPMENT_TEAM = B64HD4YQJW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Countertop/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
