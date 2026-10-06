@@ -80,6 +80,7 @@ public enum Organic {
         public static var h6: SwiftUI.Font { heading(13) }   // uppercase, 0.08em tracking
         public static var subHeading: SwiftUI.Font { body(20) }
         public static var body: SwiftUI.Font { body(18) }
+        public static var bodySmall: SwiftUI.Font { body(14) }
         public static var caption: SwiftUI.Font { body(11) }
     }
 

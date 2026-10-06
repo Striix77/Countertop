@@ -8,7 +8,7 @@ struct HomeScreen: View {
     }
 
     private var gridColumns: [GridItem] {
-        [.init(.adaptive(minimum: 160)), .init(.adaptive(minimum: 160))]
+        [.init(.adaptive(minimum: 160))]
     }
 
     private var recipeCount: Int {
@@ -23,25 +23,9 @@ struct HomeScreen: View {
 
                     searchField
 
-                    LazyVGrid(columns: gridColumns, spacing: Organic.Space.s4) {
-                        ForEach(viewModel.searchedRecipes, id: \.id) { recipe in
-                            VStack {
-                                recipeItemCard
-
-                                recipeItemDetails(recipe: recipe)
-                            }
-                            .onTapGesture {
-                                viewModel.showDetail(id: recipe.id)
-                            }
-                        }
-                    }
+                    recipeGrid
                 }
             }
-            //            VStack(spacing: Organic.Space.s4) {
-            //                Text("Home")
-            //                Button("Push Detail") { viewModel.showDetail(id: UUID()) }
-            //                Button("Present Settings") { viewModel.showSettings() }
-            //            }
         }
         .padding(Organic.Space.s4)
         .task { await viewModel.load() }
@@ -67,7 +51,7 @@ struct HomeScreen: View {
                 "",
                 text: $viewModel.searchInput,
                 prompt: Text("Search for recipes or ingredients")
-                    .foregroundStyle(Organic.Color.muted),
+                    .foregroundStyle(Organic.Color.muted)
             )
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,7 +62,29 @@ struct HomeScreen: View {
         .font(Organic.Font.body)
     }
 
-    private var recipeItemCard: some View {
+    private var recipeGrid: some View {
+        LazyVGrid(columns: gridColumns, spacing: Organic.Space.s4) {
+            ForEach(viewModel.searchedRecipes, id: \.id) { recipe in
+                recipeItemButton(recipe: recipe)
+            }
+        }
+    }
+
+    private func recipeItemButton(recipe: RecipeListEntry) -> some View {
+        Button {
+            viewModel.showDetail(id: recipe.id)
+        }
+        label: {
+            VStack {
+                recipeItemCard(id: recipe.id)
+
+                recipeItemDetails(recipe: recipe)
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func recipeItemCard(id: UUID) -> some View {
         ZStack(alignment: .topTrailing) {
             OrganicStripePattern()
                 .frame(maxWidth: .infinity)
@@ -86,26 +92,31 @@ struct HomeScreen: View {
                 .clipShape(
                     RoundedRectangle(
                         cornerRadius: Organic.Radius.lg,
-                        style: .continuous,
-                    ),
+                        style: .continuous
+                    )
                 )
 
-            Image(systemName: "heart")
-                .resizable()
-                .aspectRatio(1.1, contentMode: .fit)
-                .foregroundStyle(Organic.Color.muted)
-                .frame(width: 16)
-                .padding(Organic.Space.s2)
-                .background(Organic.Color.bg)
-                .clipShape(Circle())
-                .padding(Organic.Space.s2)
+            Button {
+                viewModel.toggleFavorite(id: id)
+            } label: {
+                Image(systemName: viewModel.isFavorite(id: id) ? "heart.fill" : "heart")
+                    .resizable()
+                    .aspectRatio(1.1, contentMode: .fit)
+                    .foregroundStyle(viewModel.isFavorite(id: id) ? Organic.Color.accent : Organic.Color.muted)
+                    .frame(width: 16)
+                    .padding(Organic.Space.s2)
+                    .background(Organic.Color.bg)
+                    .clipShape(Circle())
+                    .padding(Organic.Space.s2)
+            }
+            .buttonStyle(.plain)
         }
     }
 
     private func recipeItemDetails(recipe: RecipeListEntry) -> some View {
         VStack(
             alignment: .leading,
-            spacing: Organic.Space.s1,
+            spacing: Organic.Space.s1
         ) {
             Text(recipe.title)
                 .font(Organic.Font.h5)
@@ -120,7 +131,7 @@ struct HomeScreen: View {
                         .resizable()
                         .aspectRatio(
                             1,
-                            contentMode: .fit,
+                            contentMode: .fit
                         )
                         .frame(width: 4)
                 }
@@ -129,9 +140,9 @@ struct HomeScreen: View {
             }
             .frame(
                 maxWidth: .infinity,
-                alignment: .leading,
+                alignment: .leading
             )
-            .font(Organic.Font.caption)
+            .font(Organic.Font.bodySmall)
             .foregroundStyle(Organic.Color.muted)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

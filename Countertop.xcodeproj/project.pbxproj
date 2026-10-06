@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		0322E7553073D2D70071F574 /* ROADMAP.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ROADMAP.md; sourceTree = "<group>"; };
 		03B34D05303C5C6C0064FF0D /* Countertop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countertop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				03B34D07303C5C6C0064FF0D /* Countertop */,
+				0322E7553073D2D70071F574 /* ROADMAP.md */,
 				03B34D06303C5C6C0064FF0D /* Products */,
 			);
 			sourceTree = "<group>";
